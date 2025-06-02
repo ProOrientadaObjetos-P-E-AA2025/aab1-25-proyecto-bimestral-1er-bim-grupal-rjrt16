@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -52,22 +51,25 @@ public class Venta {
 
         double totalBoletos = funcionSeleccionada.getPrecio() * cantidadBoletos;
 
-        if (funcionSeleccionada.getDia().equalsIgnoreCase("Miércoles")) {
-            totalBoletos *= 0.8;
-            System.out.println("¡Promoción del 20% aplicada en boletos!");
+        switch (funcionSeleccionada.getDia().toLowerCase()) {
+            case "miércoles":
+                totalBoletos *= 0.8;
+                System.out.println("¡Promoción del 20% aplicada en boletos!");
+                break;
+            case "martes":
+                totalBoletos *= 0.9;
+                System.out.println("¡Promoción del 10% aplicada en boletos!");
+                break;
+            case "viernes":
+                totalBoletos *= 0.6;
+                System.out.println("¡Promoción del 40% aplicada en boletos!");
+                break;
+            case "domingo":
+                totalBoletos *= 0.5;
+                System.out.println("¡Promoción del 50% aplicada en boletos!");
+                break;
         }
-        if (funcionSeleccionada.getDia().equalsIgnoreCase("Martes")) {
-            totalBoletos *= 0.9;
-            System.out.println("¡Promoción del 10% aplicada en boletos!");
-        }
-        if (funcionSeleccionada.getDia().equalsIgnoreCase("Viernes")) {
-            totalBoletos *= 0.6;
-            System.out.println("¡Promoción del 40% aplicada en boletos!");
-        }
-        if (funcionSeleccionada.getDia().equalsIgnoreCase("Domingo")) {
-            totalBoletos *= 0.5;
-            System.out.println("¡Promoción del 50% aplicada en boletos!");
-        }
+
         ArrayList<Snack> snacksComprados = new ArrayList<>();
         ArrayList<Integer> cantidades = new ArrayList<>();
         double totalSnacks = 0;
@@ -77,22 +79,25 @@ public class Venta {
             for (int i = 0; i < snacksDisponibles.size(); i++) {
                 System.out.println((i + 1) + ". " + snacksDisponibles.get(i).getNombre() + " - $" + snacksDisponibles.get(i).getPrecio());
             }
+            System.out.println((snacksDisponibles.size() + 1) + ". De nada");
 
             System.out.print("Seleccione snack: ");
             int snackIndex = an.nextInt() - 1;
             an.nextLine();
-            if (snackIndex == 7) {
 
+            if (snackIndex == snacksDisponibles.size()) {
+                System.out.println("No se seleccionó ningún snack.");
+            } else if (snackIndex >= 0 && snackIndex < snacksDisponibles.size()) {
                 System.out.print("Cantidad: ");
                 int cantidad = an.nextInt();
                 an.nextLine();
 
-                if (snackIndex >= 0 && snackIndex < snacksDisponibles.size()) {
-                    Snack snack = snacksDisponibles.get(snackIndex);
-                    snacksComprados.add(snack);
-                    cantidades.add(cantidad);
-                    totalSnacks += snack.getPrecio() * cantidad;
-                }
+                Snack snack = snacksDisponibles.get(snackIndex);
+                snacksComprados.add(snack);
+                cantidades.add(cantidad);
+                totalSnacks += snack.getPrecio() * cantidad;
+            } else {
+                System.out.println("Selección inválida.");
             }
 
             System.out.print("¿Desea agregar otro snack? (si/no): ");

@@ -75,7 +75,6 @@ public class EjecutorCineMas {
         snacksDisponibles.add(new Snack("Hot Dog", 2.0));
         snacksDisponibles.add(new Snack("Granizado", 1.5));
         snacksDisponibles.add(new Snack("Pizza", 1.0));
-        snacksDisponibles.add(new Snack("nada", 0.0));
     }
 
     public void mostrarCartelera() {
